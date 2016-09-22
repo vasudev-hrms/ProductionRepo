@@ -21,19 +21,22 @@ var decision = [];
 if(typeof pl != "object") {
   return[];
 } else { 
-	  if(isAny("condition_1") && isAny("condition_2") && isAny("condition_6")){
+	  if(isAny("condition_1") && isAny("condition_2") && isAny("condition_6") && isAny("condition_9")){
        decision.push({  });
 	} 
-	 else if(isAny("condition_1") && isAny("condition_2") && isAny("condition_6")){
+	 else if(isAny("condition_1") && isAny("condition_2") && isAny("condition_6") && isAny("condition_9")){
        decision.push({  });
 	} 
-	 else if(isAny("condition_1") && isAny("condition_2") && isAny("condition_6")){
+	 else if(isAny("condition_1") && isAny("condition_2") && isAny("condition_6") && isAny("condition_9")){
        decision.push({  });
 	} 
-	 else if(isAny("condition_1") && isAny("condition_2") && isAny("condition_6")){
+	 else if(isAny("condition_1") && isAny("condition_2") && isAny("condition_6") && isAny("condition_9")){
        decision.push({  });
 	} 
-	 else if(isAny("condition_1") && isAny("condition_2") && isAny("condition_6")){
+	 else if(isAny("condition_1") && isAny("condition_2") && isAny("condition_6") && isAny("condition_9")){
+       decision.push({  });
+	} 
+	 else if(isAny("condition_1") && isAny("condition_2") && isAny("condition_6") && isAny("condition_9")){
        decision.push({  });
 	} 
 }
