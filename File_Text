@@ -1,0 +1,3143 @@
+package com.scriptr.pageobjects;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.HasInputDevices;
+import org.openqa.selenium.interactions.Mouse;
+import org.openqa.selenium.internal.Locatable;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.Listeners;
+
+import com.scriptr.reusableScripts.CommonMethods;
+import com.scriptr.reusableScripts.ScriptrReusableMethods;
+import com.scriptr.reusableScripts.ScriptrStaticVariables;
+import com.scriptr.tests.GoogleChartOperationsMethods;
+import com.scriptr.tests.SciptrRegistrationMethods;
+import com.scriptr.tests.ScriptOperationsMethods;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import atu.testng.reports.ATUReports;
+import atu.testng.reports.listeners.ATUReportsListener;
+import atu.testng.reports.listeners.ConfigurationListener;
+import atu.testng.reports.listeners.MethodListener;
+import atu.testng.reports.logging.LogAs;
+import atu.testng.selenium.reports.CaptureScreen;
+import atu.testng.selenium.reports.CaptureScreen.ScreenshotOf;
+import static org.junit.Assert.*;
+public class DeviceAndGroupOperationsScripts {	
+
+
+
+
+
+
+	//Groups
+	@FindBy(how=How.XPATH,using="//*[@id='deviceDirectoryModal']/div/div/div[2]/ul/li")
+	private List <WebElement> directoryTabs; 
+
+
+
+
+
+
+
+
+	//groups elements
+	@FindBy(how=How.XPATH,using="//*[@class='groupItems']")
+	private WebElement groupItems;
+
+	@FindBy(how=How.XPATH,using="//*[@id='deviceDirectoryModal']/div/div/div[2]/ul/li[2]/a")
+	private WebElement groupTab; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='groupsDirectoryTab']/div[3]/div[2]")
+	private WebElement noGroupMessage; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='groupsDirectoryTab']/div[3]/div[1]/h5/a")
+	private WebElement addGroupLink; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	@FindBy(how=How.LINK_TEXT,using="Google Chart")
+	private WebElement chartMenu;	
+
+	@FindBy(how=How.XPATH,using="//*[@id='___NewScript1_GoogleCharts']/a")
+	private WebElement chartTabName; 
+
+	@FindBy(how=How.ID,using="google-visualization-charteditor-layout-table")
+	private WebElement chartEditor; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='content___NewScript1_GoogleCharts']/div[1]/div[1]/header/div[1]/span[2]")
+	private WebElement chartScriptNameFocus; 	
+
+	@FindBy(how=How.XPATH,using="//*[@id='content___NewScript1_GoogleCharts']/div[1]/div[1]/header/div[1]/span[3]/div/form/div/div[1]/div/input")
+	private WebElement chartScriptNameField;
+
+	@FindBy(how=How.XPATH,using="//*[@id='navBar']")
+	private WebElement chartOutsideFocus; 
+
+
+
+	//Select Script drop down section
+	@FindBy(how=How.XPATH,using="//*[@class='scripts-list']/span[1]")
+	private WebElement selectScriptHeading; 
+
+	@FindBy(how=How.XPATH,using="//*[@class='scripts-list']/a[1]")
+	private WebElement refreshIcon; 
+
+	@FindBy(how=How.XPATH,using="//*[@class='scripts-list']/a[2]")
+	private WebElement newScriptIcon; 
+
+	//graphs and preview chart
+	@FindBy(how=How.XPATH,using="//*[@id='google-visualization-charteditor-preview-div-chart']/div/div[1]/div[1]")
+	private WebElement previewChart; 
+
+
+
+
+	//navigation panel	
+	@FindBy(how=How.ID,using="//*[@id='google-visualization-charteditor-panel-navigate-div']/div")
+	private List<WebElement> navigationMenuList;
+
+	@FindBy(how=How.XPATH,using="//*[@id='scriptsTemplates']/div[3]/div[1]/div[2]/div/div[3]/div")
+	private List<WebElement> chartButtonsList;
+
+
+
+	//recomended chart headings
+	@FindBy(how=How.XPATH,using="	//*[@id='google-visualization-charteditor-recommendedcharts']")
+	private WebElement recommendedChartsHeading;
+
+	@FindBy(how=How.XPATH,using="//*[@id='google-visualization-charteditor-thumbnail-histogram']")
+	private WebElement recommendedHistogramChart;
+
+	@FindBy(how=How.XPATH,using="//*[@id='google-visualization-charteditor-thumbnail-barchart']")
+	private WebElement recommendedBarChart;
+
+	@FindBy(how=How.XPATH,using="//*[@id='google-visualization-charteditor-thumbnail-columnchart']")
+	private WebElement recommendedColumnBarChart;
+
+	@FindBy(how=How.XPATH,using=".//*[@id='google-visualization-charteditor-thumbnail-combochart']")
+	private WebElement recommendedComboChart;
+
+
+
+
+
+	//chart attributes
+
+	@FindBy(how=How.XPATH,using="//*[@id='google-visualization-charteditor-input-chart-title']")
+	private WebElement chartTitleField; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='google-visualization-charteditor-preview-div-chart']/div/div[1]/div/svg/g[1]/text")
+	private WebElement chartTitle; 
+
+	//compare editor
+	@FindBy(how=How.XPATH,using="//*[@id='content_Chart_codeMirrorMerge']/div[1]/div[1]/div[1]/div[1]")
+	private WebElement ErrorMessageInCompareEditor; 
+
+
+
+
+
+
+
+
+
+
+
+
+	@FindBy(how=How.LINK_TEXT,using="Account")
+	private WebElement AccountLink; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='nav']/section/footer/div/button[2]")
+	private WebElement NewScriptDropDown; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='content___NewScript1_CodeMirrorArbitraryFile']/div[1]/div[1]/header/div[1]/span[3]/div/form/div/div[1]/div/input")
+	private WebElement FileNameField; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='content___NewScript1_CodeMirrorArbitraryFile']/div[1]/div[2]/div/div[1]/textarea")
+	private WebElement ScriptEditor; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='saveScriptBtn']")
+	private WebElement SaveButton; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='runScriptBtn']")
+	private WebElement RunButton; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='deleteScriptBtn']")
+	private WebElement DeleteButton; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='scheduledScriptBtn']")
+	private WebElement ScheduledButton; 	
+
+	@FindBy(how=How.XPATH,using="//*[@id='deleteModal']/div/div/div[3]/button[2]")
+	private WebElement DeleteButtonInConfirmationPopup;	
+
+	@FindBy(how=How.XPATH,using="//*[@id='deleteModal']/div/div/div[3]/button[1]")
+	private WebElement CancelButtonInConfirmationPopup;
+
+	@FindBy(how=How.XPATH,using="//*[@id='deleteModal']/div/div/div[2]")
+	private WebElement DeleteConfirmationPopupMessage;
+
+	@FindBy(how=How.ID,using="console-logs")
+	private WebElement ScriptOutPut;	
+
+	@FindBy(how=How.XPATH,using="//*[@id='changesModal']/div/div/div[3]/button[1]")
+	private WebElement YesButtonInUnSavedChangesPopup;	
+
+	@FindBy(how=How.XPATH,using="//*[@id='deleteModal']/div/div/div[3]/button[2]")
+	private WebElement CancelButtonInUnSavedChangesPopup;
+
+	@FindBy(how=How.XPATH,using="//*[@id='changesModal']/div/div/div[2]")
+	private WebElement UnSavedChangesPopupMessage;	
+
+	@FindBy(how=How.ID,using="id='myModalLabel")
+	private WebElement UnsavedChangesPopup;	
+
+	@FindBy(how=How.LINK_TEXT,using="Logs")
+	private WebElement LogsPage; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='log-accordion']/div")
+	private List<WebElement> LogsList;
+
+	@FindBy(how=How.ID,using="log-accordion")
+	private WebElement LogsContainer;
+
+	//Run As Pop up buttons and fields identification 
+	@FindBy(how=How.XPATH,using="//*[@id='runScriptDropDown']")
+	private WebElement RunScriptDropDown;	
+
+	@FindBy(how=How.LINK_TEXT,using="Run...")
+	private WebElement RunLink;
+
+	@FindBy(how=How.XPATH,using="//*[@id='myModalLabel']")
+	private WebElement RunAsPopupHeading;
+
+	@FindBy(how=How.XPATH,using="//*[@id='_returndata_codeMirror_parameterModal']/div/div/div[3]/button[1]")
+	private WebElement CloseButtonInRunAsPopup;	
+
+	@FindBy(how=How.XPATH,using="//*[@id='_returndata_codeMirror_parameterModal']/div/div/div[3]/button[2]")
+	private WebElement RunButtonInRunAsPopup;
+
+	@FindBy(how=How.XPATH,using="//*[@id='param_1']/input[1]")
+	private WebElement ParameterNameInRunAsPopup;
+
+	@FindBy(how=How.XPATH,using="//*[@id='param_1']/input[2]")
+	private WebElement ParameterValueInRunAsPopup;
+
+	@FindBy(how=How.XPATH,using="//*[@id='param_1']/span[3]/button")
+	private WebElement AddNewParameterButton;
+
+	//FileMenu
+
+
+	@FindBy(how=How.LINK_TEXT,using="File")
+	private WebElement FileMenu;
+
+	@FindBy(how=How.LINK_TEXT,using="Text")
+	private WebElement TextSubMenu;
+
+	@FindBy(how=How.LINK_TEXT,using="HTML")
+	private WebElement HTMLSubMenu;
+
+	@FindBy(how=How.LINK_TEXT,using="CSS")
+	private WebElement CSSSubMenu;
+
+	@FindBy(how=How.LINK_TEXT,using="JS")
+	private WebElement JSSubMenu;
+
+	@FindBy(how=How.XPATH,using="//*[@id='content___NewScript1_CodeMirrorArbitraryFile']/div[1]/div[2]/div/div[6]")
+	private WebElement FileEditor;
+
+	@FindBy(how=How.XPATH,using="//*[@id='content___NewScript1_CodeMirrorArbitraryFile']/div[1]/div[1]/header/div[1]/span[2]")
+	private WebElement FocusOnSetName;
+
+	@FindBy(how=How.XPATH,using="//*[@id='content___NewScript1_CodeMirrorArbitraryFile']/div[1]/div[1]/header/div[1]/span[3]/div/form/div/div[1]/div/input")
+	private WebElement FileName;
+
+	@FindBy(how=How.XPATH,using="//*[@id='content___NewScript1_CodeMirrorArbitraryFile']/div[1]/div[2]/div/div[1]/textarea")
+	private WebElement FileEditorCode; 
+
+	@FindBy(how=How.XPATH,using="//*[@id='saveScriptBtn']")
+	private WebElement ScriptSaveButton; 
+
+	@FindBy(how=How.LINK_TEXT,using="Update...")
+	private WebElement UpdateOption;
+
+	@FindBy(how=How.LINK_TEXT,using="Commit...")
+	private WebElement CommitOption;
+
+	@FindBy(how=How.LINK_TEXT,using="Compare")
+	private WebElement CompareOption;
+
+
+	//groups
+	String groupsListID="//*[@class='groupItems']/li";
+
+
+
+	public static String ExpectedLoginPageTitle = "Log Into Your Workspace | scriptr.io";
+	public static String ExpectedWorkSpacePageTitle="Workspace | scriptr.io";
+	public static String expectedScriptSaveSuccessMessage="The file has been saved successfully.";
+	private static WebDriver driver;	
+	String ParameterListID="//*[@id='scriptParameterModalForm']/div";
+
+	CommonMethods common=new CommonMethods();
+	LoginPage login;
+	ScriptrLoginScripts LoginPage;
+	ScriptrRegistrationScripts ThirdPartyLogin;	
+	private static Properties prop = new Properties();
+	ArrayList<String> elements = new ArrayList<String>();
+	WebDriverWait wait;
+	public int myvariable=100;
+	public int myvariable2=100;	
+	Sheet InputDataSheet;
+	ScriptOperationsScripts ScriptOperations;
+	GithubConnectionScripts githubConnection;
+	ScriptrLoginScripts ProfileSection;
+	ScriptrReusableMethods scriptr;
+
+
+
+
+
+	String NormalString="NormalString";
+	String JSONArray="JSONArray";
+	String JSONObject="JSONObject";
+	String anonymousToken;
+
+
+
+	public DeviceAndGroupOperationsScripts(WebDriver driver) 
+	{
+		CommonMethods common=new CommonMethods();
+		ScriptOperations=new ScriptOperationsScripts(driver);
+		githubConnection=new GithubConnectionScripts(driver);
+		ProfileSection=new ScriptrLoginScripts(driver);
+		scriptr=new ScriptrReusableMethods(driver);
+		DeviceAndGroupOperationsScripts.driver=driver;	       
+		PageFactory.initElements(driver, this);
+		wait = new WebDriverWait(driver, 30);	
+		LoginPage =new ScriptrLoginScripts(driver);	
+		System.out.println(ScriptOperationsMethods.URL);
+		InputDataSheet=common.readInputData("InPutDataFolder/ScriptOperationsInputData.xls","ScriptrOperations");
+	}
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to open google chart and verify all elements/fields are displayed properly
+	 */
+
+	public boolean verifyNewChartEditor()
+	{	
+
+		boolean isSuccess=false;
+		if(scriptr.openDirectoryOverlay())
+		{
+
+		}
+
+		return isSuccess;
+	}
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to verify error message when user try to save chart script without selecting data source script	 and return true if successfully verified otherwise false
+	 * @param: ChartName
+	 */
+	public boolean verifyErrorMessageWhenuserDoNotSelectedSourceScriptAndTryToSaveChart(String chartName)
+	{	
+		boolean isSuccess=true;
+		common.RefreshThePage(driver);
+		if(openNewChartEditor())
+		{			
+			common.waitUntillPageLoads(1000);
+			if(enterChartScriptName(chartName))
+			{
+				common.waitUntillPageLoads(1000);
+				if(isSaveButtonEnabled())
+				{
+					common.waitUntillPageLoads(2000);
+					common.isElementDisplayed(driver, SaveButton, "Save Button").click();
+					common.waitUntillPageLoads(500);
+					String errorMessageId="//*[@id='content___NewScript1_GoogleCharts']/div[1]/div[1]/div[1]/div[1]";
+					WebElement errorMessageWebElement=getWebElement(driver, errorMessageId, "error Message Id");
+					if(!common.isWebElementNull(driver, errorMessageWebElement))
+					{
+						String obatainedErrorMessage=errorMessageWebElement.getText().toString();
+						if(verifyErrorMessages(obatainedErrorMessage, "You need to select a data source before saving your chart."))
+						{			
+							ATUReports.add("Proper Error Message Displayed When user clicked on save button without selecting data source script", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+							isSuccess=true;	
+							CloseScriiptTab();
+
+						}else
+						{
+							ATUReports.add("Proper Error Message not Displayed When user clicked on save button without selecting data source script", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						}
+					}
+					else
+					{
+						ATUReports.add("Error Message Not displayed or Not visible to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}
+				}
+			}
+		}
+
+
+		return isSuccess;
+
+	}
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to verify creating data source script from chart file and saving chart by selecting data source script and return true if successfully verified otherwise false
+	 * @param: chartScriptName
+	 * @param: sourceScriptName
+	 * @param: SorceScript Code path
+	 */
+	public boolean createChartScriptByCreatingScriptFromChartEditior(String chartScriptName,String sourceScriptName,String SourceScriptCode)
+	{	
+		boolean isSuccess=true;
+		common.RefreshThePage(driver);
+		if(openNewChartEditor())
+		{		
+			if(clickOnNewScriptIcon())
+			{
+				goToRequiredNewScriptTab(2);
+				String setNameID="//*[@id='content___NewScript2_codeMirror']/div[1]/div[1]/header/div[1]/span[2]";
+				String scriptNameID="//*[@id='content___NewScript2_codeMirror']/div[1]/div[1]/header/div[1]/span[3]/div/form/div/div[1]/div/input";
+				String scriptEditorID="//*[@id='content___NewScript2_codeMirror']/div[1]/div[2]/div/div[6]/div[1]/div/div/div/div[5]/div/pre";			
+
+				getWebElement(driver, setNameID, "setNameID").click();
+				getWebElement(driver, scriptNameID, "scriptNameID").sendKeys(sourceScriptName);
+				getWebElement(driver, scriptEditorID, "scriptEditorID").click();
+				enterCodeInScriptEditor(SourceScriptCode);	
+				common.waitUntillPageLoads(500);
+				common.isElementDisplayed(driver, SaveButton, "SaveButton").click();
+				common.waitUntillPageLoads(500);
+				String Successmessageid="//*[@id='content_"+sourceScriptName+"_codeMirror']/div[1]/div[1]/div[1]/div[1]";			
+				//waiting until success message to be displayed and Getting Success message and stored in string variable			
+				String SuccessMessage=getWebElement(driver,Successmessageid,"Success Message").getText();			
+				//Verifying the saved script success message
+				if(expectedScriptSaveSuccessMessage.equalsIgnoreCase(SuccessMessage))
+				{		
+					isSuccess=true;					
+					moveToChartTab();
+					common.waitUntillPageLoads(2000);
+					enterChartScriptName(chartScriptName);
+					common.waitUntillPageLoads(2000);
+					if(isSaveButtonEnabled())
+					{
+						common.waitUntillPageLoads(2000);
+						if(selectSourceScriptFromDropdown(sourceScriptName))
+						{
+							common.waitUntillPageLoads(5000);
+							common.isElementDisplayed(driver, SaveButton, "SaveButton").click();
+							common.waitUntillPageLoads(1500);
+							if(VerifySuccessMessage(chartScriptName))
+							{
+								if(verifyChartTabsAfterSavingChart(chartScriptName, sourceScriptName))
+								{
+									isSuccess=true;
+								}
+							}
+						}
+						else
+						{
+							ATUReports.add("Unable to select data source script from drop down", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						}
+					}
+					else
+					{
+						ATUReports.add("After entering Chart name save button is not getting enabled", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}
+
+
+				}
+				else
+				{
+					//Taking Screen shot on Failure
+					ATUReports.add("Unable to create script by providing valid script name and valid data ","valid data",  "Displayed Proper Success Message after saving data", "Not Displayed Proper Success Message after saving data", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+				}
+
+
+			}
+
+
+		}
+
+
+		return isSuccess;
+
+	}
+
+
+	/**
+	 * Implementation of the method to verify creating chart by selecting existing data source script and return true if successfully verified otherwise false
+	 * @param: chartScriptName
+	 * @param: sourceScriptName
+	 */
+	public boolean saveChartScriptByProvidingValidNameAndSourceScript(String chartScriptName,String sourceScriptName)
+	{	
+		anonymousToken=ProfileSection.GetToken("Anonymous Token");
+		boolean isSuccess=true;
+		common.RefreshThePage(driver);
+		if(openNewChartEditor())
+		{
+			common.waitUntillPageLoads(1000);
+			if(enterChartScriptName(chartScriptName))
+			{
+				common.waitUntillPageLoads(1000);
+				if(isSaveButtonEnabled())
+				{
+					common.waitUntillPageLoads(2000);
+					if(selectSourceScriptFromDropdown(sourceScriptName))
+					{				
+						common.waitUntillPageLoads(4000);
+						common.isElementDisplayed(driver, SaveButton, "SaveButton").click();
+						common.waitUntillPageLoads(1500);
+						if(VerifySuccessMessage(chartScriptName))
+						{							
+							if(verifyChartTabsAfterSavingChart(chartScriptName, sourceScriptName))
+							{
+								isSuccess=true;
+							}
+
+						}
+					}
+					else
+					{
+						ATUReports.add("Unable to select data source script from drop down", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}
+				}
+				else
+				{
+					ATUReports.add("After entering Chart name save button is not getting enabled", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+				}
+
+			}
+		}
+
+
+		return isSuccess;
+
+	}
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to verify error message when user select invalid data source script and return true if successfully verified otherwise false
+	 * @param: chartScriptName
+	 * @param: sourceScriptName
+	 */
+	public boolean verifyErrorMessageWhenUserSelectsInvalidDataSourceScript(String chartName,String sourceScriptName,String sourceScriptCode)
+	{	
+		boolean isSuccess=false;
+		common.RefreshThePage(driver);
+		if(openNewChartEditor())
+		{
+			if(clickOnNewScriptIcon())
+			{			
+				goToRequiredNewScriptTab(2);
+				String setNameID="//*[@id='content___NewScript2_codeMirror']/div[1]/div[1]/header/div[1]/span[2]";
+				String scriptNameID="//*[@id='content___NewScript2_codeMirror']/div[1]/div[1]/header/div[1]/span[3]/div/form/div/div[1]/div/input";
+				String scriptEditorID="//*[@id='content___NewScript2_codeMirror']/div[1]/div[2]/div/div[6]/div[1]/div/div/div/div[5]/div/pre";				
+				if(getWebElement(driver, setNameID, "setNameID")!=null)
+				{
+					getWebElement(driver, setNameID, "setNameID").click();
+				}
+				if(getWebElement(driver, scriptNameID, "scriptNameID")!=null)
+				{
+					getWebElement(driver, scriptNameID, "scriptNameID").sendKeys(sourceScriptName);
+				}
+				if(getWebElement(driver, scriptEditorID, "scriptEditorID")!=null)
+				{				
+					getWebElement(driver, scriptEditorID, "scriptEditorID").click();
+				}
+				enterCodeInScriptEditor(sourceScriptCode);	
+				common.waitUntillPageLoads(500);
+				common.isElementDisplayed(driver, SaveButton, "SaveButton").click();
+				common.waitUntillPageLoads(1000);
+				String Successmessageid="//*[@id='content_"+sourceScriptName+"_codeMirror']/div[1]/div[1]/div[1]/div[1]";			
+				//waiting until success message to be displayed and Getting Success message and stored in string variable			
+				String SuccessMessage=getWebElement(driver,Successmessageid,"Success Message").getText();			
+				//Verifying the saved script success message
+				if(expectedScriptSaveSuccessMessage.equalsIgnoreCase(SuccessMessage))
+				{	
+					ATUReports.add("Invalid data source script created successfully", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					moveToChartTab();
+					common.waitUntillPageLoads(2000);
+					enterChartScriptName(chartName);
+					common.waitUntillPageLoads(2000);
+					if(isSaveButtonEnabled())
+					{
+						common.waitUntillPageLoads(2000);
+						if(selectSourceScriptFromDropdown(sourceScriptName))
+						{				
+							if(verifySelectScriptErrorMessage(sourceScriptName))
+							{
+								isSuccess=true;
+								CloseScriiptTab();
+							}
+						}
+						else
+						{
+							ATUReports.add("Unable to select data source script from drop down", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+							CloseScriiptTab();
+						}
+					}
+					else
+					{
+						ATUReports.add("After entering Chart name save button is not getting enabled", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						CloseScriiptTab();
+					}
+
+
+				}
+				else
+				{
+					//Taking Screen shot on Failure
+					ATUReports.add("Unable to create script by providing valid script name and valid data ","valid data",  "Displayed Proper Success Message after saving data", "Not Displayed Proper Success Message after saving data", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+				}
+
+
+			}
+
+
+		}
+
+
+		return isSuccess;
+
+	}
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to verify chart tabs before saving chart and return true if successfully verified otherwise false
+	 * @param: chartScriptName
+	 * @param: sourceScriptName
+	 */
+	public boolean verifyChartTabsBeforeSavingChart(String chartScriptName,String sourceScriptName )
+	{	
+		boolean isSuccess=true;	
+		boolean isChartSaved=false;
+		int count=0;
+		common.waitUntillPageLoads(3000);
+		if(verifyDataTab(chartScriptName,sourceScriptName,isChartSaved))
+		{
+			count++;	
+		}
+		if(verifyEmbedTab(chartScriptName,sourceScriptName,isChartSaved))
+		{
+			count++;
+		}
+
+		if(verifyHTMLTab(chartScriptName, sourceScriptName,isChartSaved))
+		{
+			count++;
+		}
+		if(verifySampleTab(chartScriptName, sourceScriptName,isChartSaved))
+		{
+			count++;
+		}	
+		if(count==4)
+		{
+			isSuccess=true;
+		}
+
+		return isSuccess;
+
+	}
+
+
+
+
+
+	/**
+	 * Implementation of the method to verify chart tabs after saving chart and return true if successfully verified otherwise false
+	 * @param: chartScriptName
+	 * @param: sourceScriptName
+	 */
+	public boolean verifyChartTabsAfterSavingChart(String chartScriptName,String sourceScriptName )
+	{	
+		boolean isSuccess=true;
+		boolean isChartSaved=true;
+		int count=0;
+		common.RefreshThePage(driver);
+		if(ScriptOperations.openScriptFromScriptTree(chartScriptName))
+		{
+			common.waitUntillPageLoads(5000);
+			if(verifyDataTab(chartScriptName,sourceScriptName,isChartSaved))
+			{
+				count++;	
+			}
+			if(verifyEmbedTab(chartScriptName,sourceScriptName,isChartSaved))
+			{
+				count++;
+			}
+
+			if(verifyHTMLTab(chartScriptName, sourceScriptName,isChartSaved))
+			{
+				count++;
+			}
+			if(verifySampleTab(chartScriptName, sourceScriptName,isChartSaved))
+			{
+				count++;
+			}	
+			if(count==4)
+			{
+				isSuccess=true;
+			}
+		}
+
+		return isSuccess;
+
+	}
+
+
+
+
+
+	/**
+	 * Implementation of the method to prepare expected embedded link  and return true if successfully verified otherwise false	 * 
+	 * @param: sourceScriptName
+	 */
+
+	public String getEmbededLink(String sourceScriptName) 
+	{	
+		String EmbededLink=null;	
+
+		EmbededLink=GoogleChartOperationsMethods.currentURL+sourceScriptName+"?auth_token="+anonymousToken;
+
+		return EmbededLink;
+	}
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to verify error message by comparing obtained and expected errors and return true if successfully verified otherwise false	 * 
+	 * @param: obtainedMessage
+	 * @param: expectedMessage
+	 */
+
+
+	public boolean verifyErrorMessages(String obtainedMessage,String expectedMessage) 
+	{
+		boolean isSuccess=false;
+
+		if(obtainedMessage.equals(expectedMessage))
+		{
+			isSuccess=true;
+
+		}
+		else
+		{
+			isSuccess=false;
+
+		}
+
+		return isSuccess;
+	}
+
+
+
+
+
+	/**
+	 * Implementation of the method to update chart title name for saved chart script and return true if successfully verified otherwise false	
+	 * @param: chartScriptName
+	 * @param: chartTitleName
+	 */
+	public boolean updateExistingChartTitleName(String chartScriptName,String chartTitleName)
+	{	
+		boolean isSuccess=false;	
+
+		if(ScriptOperations.openScriptFromScriptTree(chartScriptName))
+		{
+			common.waitUntillPageLoads(6000);
+			if(openNavigationMenu("Customize"))
+			{
+				if(updateChartTitleName(chartTitleName))
+				{
+					/*if(getChartTitleName().trim().equals(chartTitleName))
+					{
+						isSuccess=true;
+					}*/
+					common.waitUntillPageLoads(1000);
+					if(placeCursorOutSideChartScriptName())
+					{
+						if(isSaveButtonEnabled())
+						{
+							common.isElementDisplayed(driver, SaveButton, "SaveButton").click();
+							common.waitUntillPageLoads(500);
+							if(VerifySuccessMessage(chartScriptName))
+							{
+								isSuccess=true;
+							}
+						}
+					}
+
+				}
+			}
+		}	
+
+		return isSuccess;
+
+	}
+
+
+
+
+	/**
+	 * Implementation of the method to update existing chart name and return true if successfully verified otherwise false	
+	 * @param: oldChartScriptName
+	 * @param: newChartScriptName
+	 */
+	public boolean updateExistingChartScriptName(String oldChartScriptName,String newChartScriptName)
+	{	
+		boolean isSuccess=false;		
+		if(ScriptOperations.openScriptFromScriptTree(oldChartScriptName))
+		{
+			if(placeCursorInExistingChartScriptName(oldChartScriptName))
+			{
+				if(updateChartScriptName(oldChartScriptName, newChartScriptName))
+				{
+					common.isElementDisplayed(driver, SaveButton, "SaveButton").click();
+					common.waitUntillPageLoads(500);
+					if(VerifySuccessMessage(newChartScriptName))
+					{
+						isSuccess=true;
+					}					
+				}
+			}
+		}	
+
+		return isSuccess;
+
+	}
+
+	/**
+	 * Implementation of the method to delete existing chart script and return true if successfully verified otherwise false	
+	 * @param: oldChartScriptName
+	 * @param: newChartScriptName
+	 */
+	public boolean deleteExistingChart(String chartScriptName)
+	{	
+		boolean isSuccess=true;
+		if(ScriptOperations.openScriptFromScriptTree(chartScriptName))
+		{
+			common.waitUntillPageLoads(5000);
+			if(ScriptOperations.DeleteScript(chartScriptName))
+			{
+				isSuccess=true;
+			}
+		}
+
+		return isSuccess;
+
+	}
+
+
+	/**
+	 * Implementation of the method to open new script using new script icon in chart script and return true if successfully verified otherwise false 
+	 */
+	public boolean clickOnNewScriptIcon()
+	{	
+		boolean isSuccess=true;
+		if(switchToFrame(0))
+		{
+			if(common.isElementDisplayed(driver, newScriptIcon, "newScriptIcon").isEnabled())
+			{
+				common.isElementDisplayed(driver, newScriptIcon, "newScriptIcon").click();
+
+				isSuccess=true;
+			}
+			switchToFrame(-1);
+		}
+
+		return isSuccess;
+
+	}
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to verify error message displayed at select script drop down and return true if successfully verified otherwise false 
+	 * @param: sourceScriptName
+	 */
+	public boolean verifySelectScriptErrorMessage(String sourceScriptName)
+	{	
+		boolean isSuccess=true;
+		if(switchToFrame(0))
+		{
+			common.waitUntillPageLoads(500);
+			String errorMessageID="//*[@id='google-visualization-charteditor-custom-data-input']/div/div/div";
+			WebElement errorMessageElement=getWebElement(driver, errorMessageID, "errorMessageID");
+			if(errorMessageElement!=null)
+			{
+
+				System.out.println(errorMessageElement.getText().toString());
+				if(errorMessageElement.getText().toString().equals("Script \""+sourceScriptName+"\" execution output is not a valid chart data format. Check the available samples."))
+				{
+					isSuccess=true;
+					ATUReports.add("Proper error message displayed when user selects invalid data source script", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));					
+				}
+			}	
+			switchToFrame(-1);
+		}
+
+		return isSuccess;
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to verify data tab name and return true if data tab  displayed properly otherwise return false	 
+	 * @param: chartScriptName
+	 * @param: sourceScriptName
+	 *  @param: isChartCreated
+	 */
+	public boolean verifyDataTab(String chartScriptName,String sourceScriptName,boolean isChartCreated)
+	{	
+		boolean isSuccess=true;	
+		int count=0;
+		String scriptOutput;		
+		scriptOutput=	common.readFile("InPutDataFolder/chartScriptInputs/valiedSourceDataScriptOutPut.txt");
+		if(openChartTab(chartScriptName, "Data",isChartCreated))
+		{
+
+			String tabID=getTabID(chartScriptName, "Data",isChartCreated);
+			if(tabID!=null)
+			{					
+				String data_Heading="//*[@id='"+tabID+"']/div[1]/div";
+				String data_NoteInfo="//*[@id='"+tabID+"']/div/div/div[1]/div/div[1]/div[1]";
+				String data_ScriptNameLabel="//*[@id='"+tabID+"']/div/div/div[1]/div/div[1]/label[1]";
+				String data_Scriptname="//*[@id='"+tabID+"']/div/div/div[1]/div/div[1]/div[2]";
+				String data_ScriptRunOutputLabel="//*[@id='"+tabID+"']/div/div/div[1]/div/div[1]/label[2]";
+				String data_ScriptRunOutput="//*[@id='"+tabID+"']/div/div/div[1]/div/div[1]/div[3]";
+				if(isChartCreated)
+				{
+					if(verifyMessageUnderTab(data_Heading, "data_Heading",ScriptrStaticVariables.data_Heading , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(data_NoteInfo, "data_NoteInfo",ScriptrStaticVariables.data_NoteInfo , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(data_ScriptNameLabel, "data_ScriptNameLabel",ScriptrStaticVariables.data_ScriptNameLabel , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(data_Scriptname, "data_Scriptname",sourceScriptName , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(data_ScriptRunOutputLabel, "data_ScriptRunOutputLabel",ScriptrStaticVariables.data_ScriptRunOutputLabel , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(data_ScriptRunOutput, "data_ScriptRunOutput",scriptOutput , JSONArray))
+					{
+						count++;
+					}
+
+				}
+				else {
+					if(verifyMessageUnderTab(data_Heading, "data_Heading",ScriptrStaticVariables.data_Heading_BeforeChartCreate , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(data_NoteInfo, "data_NoteInfo",ScriptrStaticVariables.data_NoteInfo , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(data_ScriptNameLabel, "data_ScriptNameLabel",ScriptrStaticVariables.data_ScriptNameLabel , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(data_Scriptname, "data_Scriptname",ScriptrStaticVariables.data_Scriptname_BeforeChartCreate , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(data_ScriptRunOutputLabel, "data_ScriptRunOutputLabel",ScriptrStaticVariables.data_ScriptRunOutputLabel , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(data_ScriptRunOutput, "data_ScriptRunOutput",ScriptrStaticVariables.data_ScriptRunOutput_BeforeChartCreate , NormalString))
+					{
+						count++;
+					}
+				}
+
+				if(count==6)
+				{
+					ATUReports.add("Data Tab displayed properly", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					isSuccess=true;
+
+				}
+
+
+			}
+
+		}
+
+
+		return isSuccess;
+
+	}
+
+
+	/**
+	 * Implementation of the method to verify Embed tab name and return true if Embed tab  displayed properly otherwise return false	 
+	 * @param: chartScriptName
+	 * @param: sourceScriptName
+	 *  @param: isChartCreated
+	 */
+	public boolean verifyEmbedTab(String chartScriptName,String sourceScriptName,boolean isChartCreated)
+	{	
+		boolean isSuccess=false;	
+		int count=0;
+		if(openChartTab(chartScriptName, "Embed URL",isChartCreated))
+		{
+			String tabID=getTabID(chartScriptName, "Embed URL",isChartCreated);
+			if(tabID!=null)
+			{
+				String embed_Heading="//*[@id='"+tabID+"']/div[1]/div";
+				String embed_NoteInfo="//*[@id='"+tabID+"']/div/div/div[1]/div/div/div[1]";
+				String embed_LinkLabel="//*[@id='"+tabID+"']/div/div/div[1]/div/div/label[1]";
+				String embed_Linkname="//*[@id='"+tabID+"']/div/div/div[1]/div/div/div[2]";
+				String embed_Label="//*[@id='"+tabID+"']/div/div/div[1]/div/div/label[2]";
+				String embed_Code="//*[@id='"+tabID+"']/div/div/div[1]/div/div/div[3]";
+				if(isChartCreated)
+				{
+					if(verifyMessageUnderTab(embed_Heading, "embed_Heading",ScriptrStaticVariables.embed_Heading , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(embed_NoteInfo, "embed_NoteInfo",ScriptrStaticVariables.embed_NoteInfo , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(embed_LinkLabel, "embed_LinkLabel",ScriptrStaticVariables.embed_LinkLabel , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(embed_Linkname, "embed_Linkname",getEmbededLink(chartScriptName) , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(embed_Label, "embed_Label",ScriptrStaticVariables.embed_Label , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(embed_Code, "embed_Code",ScriptrStaticVariables.embed_Codes.replace("@", getEmbededLink(chartScriptName)) , NormalString))
+					{
+						count++;
+					}
+
+				}
+				else{ 
+					if(verifyMessageUnderTab(embed_Heading, "embed_Heading",ScriptrStaticVariables.embed_Heading , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(embed_NoteInfo, "embed_NoteInfo",ScriptrStaticVariables.embed_NoteInfo , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(embed_LinkLabel, "embed_LinkLabel",ScriptrStaticVariables.embed_LinkLabel , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(embed_Linkname, "embed_Linkname",ScriptrStaticVariables.embed_Linkname_BeforeChartCreate , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(embed_Label, "embed_Label",ScriptrStaticVariables.embed_Label , NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(embed_Code, "embed_Code",ScriptrStaticVariables.embed_Code_BeforeChartCreate , NormalString))
+					{
+						count++;
+					}
+				}
+				if(count==6)
+				{
+					ATUReports.add("Ebdede Tab displayed properly", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					isSuccess=true;
+
+				}
+			}
+		}
+
+
+		return isSuccess;
+
+	}
+
+
+
+
+	/**
+	 * Implementation of the method to verify HTML tab name and return true if HTML tab  displayed properly otherwise return false	 
+	 * @param: chartScriptName
+	 * @param: sourceScriptName
+	 *  @param: isChartCreated
+	 */
+	public boolean verifyHTMLTab(String chartScriptName,String sourceScriptName,boolean isChartCreated)
+	{	
+		boolean isSuccess=true;	
+		int count=0;
+		if(openChartTab(chartScriptName, "HTML",isChartCreated))
+		{
+			String tabID=getTabID(chartScriptName, "HTML",isChartCreated);
+			if(tabID!=null)
+			{					
+				String html_Heading="//*[@id='"+tabID+"']/div[1]/div";
+				String html_NoteInfo="//*[@id='"+tabID+"']/div/div/div[1]/div/div[1]/div[1]";
+				String html_Code="//*[@id='"+tabID+"']/div/div/div[1]/div/div[1]/div[2]";
+				if(isChartCreated)
+				{
+					if(verifyMessageUnderTab(html_Heading, "html_Heading",ScriptrStaticVariables.html_Heading , NormalString))
+					{
+						count++	;
+					}
+					//verifyMessageUnderTab(html_Code, "html_Code",ScriptrStaticVariables.html_Code , NormalString)
+					if(verifyMessageUnderTab(html_NoteInfo, "html_NoteInfor",ScriptrStaticVariables.html_NoteInfo , NormalString))
+					{
+						count++	;
+					}
+					if(count==2){
+						ATUReports.add("In Saved Chart script: HTML Tab displayed properly ", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						isSuccess=true;
+					}
+
+				}
+				else {
+					if(verifyMessageUnderTab(html_Heading, "html_Heading",ScriptrStaticVariables.html_Heading , NormalString))
+					{
+						count++	;
+					}
+					if(verifyMessageUnderTab(html_NoteInfo, "html_NoteInfo",ScriptrStaticVariables.html_NoteInfo , NormalString))
+					{
+						count++	;
+					}
+					if(verifyMessageUnderTab(html_Code, "html_Code",ScriptrStaticVariables.html_Code_BeforeChartCreate , NormalString))
+					{
+						count++	;
+					}
+					if(count==3){
+						ATUReports.add("HTML Tab displayed properly", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						isSuccess=true;
+					}
+
+				}
+
+
+			}
+
+		}
+
+
+		return isSuccess;
+
+	}
+
+
+
+	/**
+	 * Implementation of the method to verify Sample tab name and return true if Sample tab  displayed properly otherwise return false	 
+	 * @param: chartScriptName
+	 * @param: sourceScriptName
+	 *  @param: isChartCreated
+	 */
+	public boolean verifySampleTab(String chartScriptName,String sourceScriptName,boolean isChartCreated)
+	{	
+		boolean isSuccess=true;		
+		int count=0;
+		if(openChartTab(chartScriptName, "Samples",isChartCreated))
+		{
+			String tabID=getTabID(chartScriptName, "Samples",isChartCreated);
+			if(tabID!=null)
+			{
+
+				String sample_Heading="//*[@id='"+tabID+"']/div[1]/div";
+				String sample_1_Label="//*[@id='"+tabID+"']/div[2]/div/div/div/div/label[1]";
+				String sample_2_Label="//*[@id='"+tabID+"']/div[2]/div/div/div/div/label[2]";
+				String sample_3_Label="//*[@id='"+tabID+"']/div[2]/div/div/div/div/label[3]";
+				String sample_4_Label="//*[@id='"+tabID+"']/div[2]/div/div/div/div/label[4]";
+				String sample_5_Label="//*[@id='"+tabID+"']/div[2]/div/div/div/div/label[5]";
+				String sample_6_Label="//*[@id='"+tabID+"']/div[2]/div/div/div/div/label[6]";
+
+				String sample_1_Code="//*[@id='"+tabID+"']/div[2]/div/div/div/div/div[1]";
+				String sample_2_Code="//*[@id='"+tabID+"']/div[2]/div/div/div/div/div[2]";
+				String sample_3_Code="//*[@id='"+tabID+"']/div[2]/div/div/div/div/div[3]";
+				String sample_4_Code="//*[@id='"+tabID+"']/div[2]/div/div/div/div/div[4]";
+				String sample_5_Code="//*[@id='"+tabID+"']/div[2]/div/div/div/div/div[5]";
+				String sample_6_Code="//*[@id='"+tabID+"']/div[2]/div/div/div/div/div[6]";
+				if((isChartCreated)||!(isChartCreated))
+				{
+					if(verifyMessageUnderTab(sample_Heading, "sample_Heading", ScriptrStaticVariables.sample_Heading,NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(sample_1_Label, "sample_1_Label",ScriptrStaticVariables.sample_1_Label,NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(sample_1_Code, "sample_1_Code", ScriptrStaticVariables.sample_1_Code,JSONArray))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(sample_2_Label, "sample_2_Label", ScriptrStaticVariables.sample_2_Label,NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(sample_2_Code, "sample_2_Code", ScriptrStaticVariables.sample_2_Code,JSONArray))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(sample_3_Label, "sample_3_Label", ScriptrStaticVariables.sample_3_Label,NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(sample_4_Label, "sample_4_Label", ScriptrStaticVariables.sample_4_Label,NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(sample_4_Code, "sample_4_Code", ScriptrStaticVariables.sample_4_Code,JSONArray))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(sample_5_Label, "sample_5_Label", ScriptrStaticVariables.sample_5_Label,NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(sample_5_Code, "sample_5_Code", ScriptrStaticVariables.sample_5_Code,JSONArray))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(sample_6_Label, "sample_6_Label", ScriptrStaticVariables.sample_6_Label,NormalString))
+					{
+						count++;
+					}
+					if(verifyMessageUnderTab(sample_6_Code, "sample_6_Code", ScriptrStaticVariables.sample_6_Code,JSONObject))
+					{
+						count++;
+					}
+
+					//verifyMessageUnderTab(sample_3_Code, "sample_3_Code", ScriptrStaticVariables.sample_3_Code,JSONObject)&&
+
+
+					if(count==12)						
+					{
+						ATUReports.add("Sample Tab displayed properly", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						isSuccess=true;
+
+					}
+				}
+
+
+			}
+		}	
+
+		return isSuccess;
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to verify message under tabs by comparing expected and otained message and return true if successfully matched otherwise return false	 
+	 * @param: chartScriptName
+	 * @param: sourceScriptName
+	 *  @param: isChartCreated
+	 */
+	public boolean verifyMessageUnderTab(String locator,String locatorName,String expectedMessage,String expectedOutputType)
+	{	
+		boolean isSuccess=false;
+
+		try{
+			common.waitUntillPageLoads(1000);
+			WebElement tabName=getWebElement(driver, locator, locatorName);
+			if(tabName!=null)
+			{
+				common.scrollUptoSpecifiedElement(driver, tabName);
+				common.waitUntillPageLoads(500);
+				System.out.println(tabName.getText().toString());
+				String obtainedMessage=tabName.getText().toString();
+
+
+				if(expectedOutputType.equals("JSONArray"))
+				{
+					JSONArray obtainedJsonObj=new JSONArray(obtainedMessage);
+					JSONArray expectedJsonObj=new JSONArray(expectedMessage);			
+					isSuccess= obtainedJsonObj.toString().equals(expectedJsonObj.toString());
+					if(!isSuccess)
+					{
+						ATUReports.add(locatorName+"JSON Array is not in proper format", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}
+
+				}
+				else if(expectedOutputType.equals("JSONObject"))
+				{
+					JSONObject obtainedJsonObj=new JSONObject(obtainedMessage);
+					JSONObject expectedJsonObj=new JSONObject(expectedMessage);			
+					isSuccess= obtainedJsonObj.toString().equals(expectedJsonObj.toString());
+					if(!isSuccess)
+					{
+						ATUReports.add(locatorName+"JSON Object is not in proper format", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}
+
+				}
+				else if(expectedOutputType.equals("NormalString")) 
+				{
+					isSuccess=obtainedMessage.trim().equals(expectedMessage);
+					if(!isSuccess)
+					{
+						System.out.println("obtainedMessage=="+obtainedMessage.trim());
+						System.out.println("expectedMessage=="+expectedMessage.trim());
+						ATUReports.add(locatorName+"Message is showing wrong",expectedMessage,obtainedMessage.trim(), LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}					
+				}
+
+			}else
+			{
+				ATUReports.add(locatorName+"section is not showing to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+		} catch (JSONException e) {
+
+			System.out.println("Exception occured in sample data==");
+			e.printStackTrace();
+			ATUReports.add(locatorName+"Obtained value showing wrong it is not either JSON Array format (OR) Json object", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+
+		return isSuccess;
+	}
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to open tab based on user input and return true if successfully opened otherwise return false
+	 * @param: chartScriptName
+	 * @param: tabName
+	 * @param: isChartCreated
+	 */
+	public boolean openChartTab(String chartScriptName,String tabName,boolean isChartCreated)
+	{	
+		boolean isSuccess=true;	
+		common.waitUntillPageLoads(500);
+		String chartTabsID=null;
+		if(isChartCreated)
+		{
+			chartTabsID="//*[@id='_"+chartScriptName+"_GoogleCharts_editor']/div[3]/div";
+		}
+		else
+		{
+
+			chartTabsID="//*[@id='___NewScript1_GoogleCharts_editor']/div[3]/div";
+		}
+		List<WebElement> chartTabsList=common.getAllWebElements(driver, chartTabsID);
+
+		if(chartTabsList.size()!=0)
+		{
+			for(WebElement chartTab:chartTabsList)
+			{
+				if(chartTab.getText().toString().equals(tabName))
+				{
+					chartTab.findElement(By.xpath("div/span")).click();						
+					isSuccess=true;
+					common.waitUntillPageLoads(2000);
+					break;
+				}
+			}
+		}
+		else
+		{
+			ATUReports.add("Chart Script Tabs are not showing to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+		return isSuccess;
+	}
+
+
+
+	/**
+	 * Implementation of the method to get Tab id based on user input and return tab id locator if successfully found otherwise return null
+	 * @param: chartScriptName
+	 * @param: tabName
+	 * @param: isChartCreated 
+	 */
+	public String getTabID(String chartScriptName,String tabName,boolean isChartCreated)
+	{	
+		String tabID=null;	
+		String chartTabsID=null;
+		if(isChartCreated)
+		{
+			chartTabsID="//*[@id='_"+chartScriptName+"_GoogleCharts_editor']/div[3]/div";
+		}
+		else
+		{
+			switchToFrame(-1);
+			chartTabsID="//*[@id='___NewScript1_GoogleCharts_editor']/div[3]/div";
+		}
+		List<WebElement> chartTabsList=common.getAllWebElements(driver, chartTabsID);
+		if(chartTabsList!=null)
+		{
+			if(tabName.equals("Data"))
+			{
+				tabID= chartTabsList.get(4).getAttribute("id");		
+			}
+			else if(tabName.equals("Embed URL"))
+			{
+				tabID= chartTabsList.get(5).getAttribute("id");		
+			}else if(tabName.equals("HTML"))
+			{
+				tabID= chartTabsList.get(6).getAttribute("id");		
+			}else if(tabName.equals("Samples"))
+			{
+				tabID= chartTabsList.get(7).getAttribute("id");		
+			}
+			common.waitUntillPageLoads(2000);
+		}
+
+		return tabID;
+	}
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to move to required script tab and return true if successfully moved to respective tab	 
+	 * @param: scriptNumber
+	 */
+	public boolean goToRequiredNewScriptTab(int scriptNumber)
+	{	
+		boolean isSuccess=false;
+
+		String scriptTabID="//*[@id='___NewScript"+scriptNumber+"_codeMirror']/a";
+		WebElement scriptTabWebElement=getWebElement(driver, scriptTabID, "scriptTabID");
+		if(scriptTabWebElement!=null)
+		{
+			scriptTabWebElement.click();
+		}
+
+		return isSuccess;
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to verify tab name and return true if it tab name displayed properly otherwise return false	 
+	 * @return 
+	 */
+	public boolean enterChartScriptName(String chartName)
+	{	
+		boolean isSuccess=false;
+
+		if(placeCursorInChartScriptName())
+		{
+			if(common.isElementDisplayed(driver, chartScriptNameField, "chartScriptNameField").isEnabled())
+			{
+				common.isElementDisplayed(driver, chartScriptNameField, "chartScriptNameField").sendKeys(chartName);
+				isSuccess=true;
+			}
+			if(placeCursorOutSideChartScriptName())
+			{
+				isSuccess=true;
+				common.waitUntillPageLoads(500);
+			}
+		}
+
+		return isSuccess;
+
+	}
+
+
+	/**
+	 * Implementation of the method to verify tab name and return true if it tab name displayed properly otherwise return false	 
+	 */
+	public boolean placeCursorInChartScriptName()
+	{	
+		boolean isSuccess=false;
+
+		if(common.isElementDisplayed(driver, chartScriptNameFocus, "chartScriptNameFocus").isEnabled())
+		{
+			common.isElementDisplayed(driver, chartScriptNameFocus, "chartScriptNameFocus").click();
+			isSuccess=true;
+		}
+		return isSuccess;
+
+	}
+
+
+	/**
+	 * Implementation of the method to verify tab name and return true if it tab name displayed properly otherwise return false	 
+	 */
+	public boolean placeCursorOutSideChartScriptName()
+	{	
+		boolean isSuccess=false;
+
+		if(common.isElementDisplayed(driver, chartOutsideFocus, "chartOutsideFocus").isEnabled())
+		{
+			common.isElementDisplayed(driver, chartOutsideFocus, "chartOutsideFocus").click();
+			isSuccess=true;
+		}
+		return isSuccess;
+
+	}
+
+	/**
+	 * Implementation of the method to verify tab name and return true if it tab name displayed properly otherwise return false	 
+	 */
+	public boolean placeCursorInExistingChartScriptName(String scriptName)
+	{	
+		boolean isSuccess=false;
+
+		String scriptNameID="//*[@id='content_"+scriptName+"_GoogleCharts']/div[1]/div[1]/header/div[1]/span[2]";
+		WebElement scriptNameWebelement=getWebElement(driver, scriptNameID, "scriptNameID");
+
+		if(scriptNameWebelement.isEnabled())
+		{
+			scriptNameWebelement.click();
+			isSuccess=true;
+		}
+		return isSuccess;
+
+	}
+
+
+	/**
+	 * Implementation of the method to verify tab name and return true if it tab name displayed properly otherwise return false	 
+	 */
+	public boolean updateChartScriptName(String chartScriptName,String newchartScriptName)
+	{	
+		boolean isSuccess=false;
+
+		String scriptNameID="//*[@id='content_"+chartScriptName+"_GoogleCharts']/div[1]/div[1]/header/div[1]/span[3]/div/form/div/div[1]/div/input";
+		WebElement scriptNameWebelement=getWebElement(driver, scriptNameID, "scriptNameID");
+		if(scriptNameWebelement!=null)
+		{
+			if(scriptNameWebelement.isEnabled())
+			{
+				scriptNameWebelement.clear();
+				scriptNameWebelement.sendKeys(newchartScriptName);
+				placeCursorOutSideChartScriptName();
+				ATUReports.add("Chart Script Name updated", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+				isSuccess=true;
+			}
+		}
+		return isSuccess;
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to open google chart editor and return true if successfully opened otherwise return false	 
+	 */
+	public boolean openNewChartEditor()
+	{	
+		boolean isNewChartOpened=false;
+		//open new chart editor
+		if(openNewScriptDropdown())
+		{
+			if(common.isElementDisplayed(driver, chartMenu, "chart Menu")!=null)
+			{
+				//clicking on chart menu in new script dropd down
+				common.isElementDisplayed(driver, chartMenu, "chart Menu").click();
+				//wait for chart editor to be opened
+				common.waitUntillPageLoads(5000);
+				if(switchToFrame(0))
+				{
+					if(common.waitForElementtobeVisible(driver, chartEditor, "chart Editors"))
+					{
+						//assign boolean value which represents success
+						isNewChartOpened=true;
+						//taking screen shot on success
+						ATUReports.add("New Chart editior opened successfully", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}
+					else
+					{
+						isNewChartOpened=true;
+						//taking screen shot on failure
+						ATUReports.add("Clicking on Chart menu(from new script drop down) not able to open new chart editor ", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}
+					switchToFrame(-1);
+				}
+			}
+
+		}
+		return isNewChartOpened;
+	}
+
+
+
+
+	/**
+	 * Implementation of the method to verify Updating file from GitHub and return true if successfully updated otherwise return false
+	 * @param: File Name	
+	 * 
+	 */
+	public boolean updateOperationOnChartScript(String FileName)
+	{	
+		System.out.println("create and save the File.........................");
+		boolean isUpdated=false;
+		if(githubConnection.UpdateTheScriptWhichIsLocatedOnlyInLocal(FileName))
+		{
+			isUpdated=true;
+		}
+		return isUpdated;
+	}
+
+	/**
+	 * Implementation of the method to verify Commit file To GitHub and return true if successfully Committed otherwise return false
+	 * @param: File Name	
+	 * 
+	 */
+	public boolean commitOperationsOnChartScript(String FileName)
+	{	
+		System.out.println("create and save the File.........................");
+		boolean isUpdated=false;
+		if(githubConnection.CommitTheScriptWhichIsLocatedOnlyInLocal(FileName, "my comment"))
+		{
+			isUpdated=true;
+		}
+		return isUpdated;
+	}
+
+
+
+
+	/**
+	 * Implementation of the method to verify Updating file from GitHub and return true if successfully updated otherwise return false
+	 * @param: File Name	
+	 * 
+	 */
+	public boolean openCompareEditorOnChartFile(String FileName)
+	{	
+
+		System.out.println("create and save the File.........................");
+		boolean isSuccess=false;
+		common.RefreshThePage(driver);
+		if(githubConnection.OpenCompareEditorOnScript(FileName))
+		{
+			String errorMessageID="//*[@id='content_"+FileName+"_codeMirrorMerge']/div[1]/div[1]/div[1]/div[1]";
+			WebElement ErrorMessageInCompareEditor=getWebElement(driver, errorMessageID, "errorMessageID");
+			if(ErrorMessageInCompareEditor!=null)
+			{
+				String ErrorMessage=ErrorMessageInCompareEditor.getText().toString().trim();
+				if(ErrorMessage.equals("File format not supported."))
+				{
+					isSuccess=true;
+				}
+			}
+			else
+			{
+				ATUReports.add("In Chart Compare Editor: Error Message Not Displayed to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+
+
+			isSuccess=true;
+		}
+		return isSuccess;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to generate the web element and return the WebElement if element is present otherwise return null
+	 */
+
+	public WebElement getWebElement(WebDriver driver, String ElementID,String ElementName)
+	{	
+		WebElement iselementpresent = null;		
+		try
+		{				
+			wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ElementID)));			
+			iselementpresent=driver.findElement(By.xpath(ElementID));
+		}
+
+		catch (NoSuchElementException e)
+		{
+			ATUReports.add("Element ("+ElementName+")  is not visible to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			System.out.println("Element"+ElementName+" is not visible to user successfully and error is="+e);
+
+		}
+		catch (TimeoutException e)
+		{
+			//taking screen shot if drop down is not visible to user
+			ATUReports.add("Element"+ElementName+" is not visible to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			System.out.println("Button Not visible and not enabled"+e);
+
+			return null;
+		}
+		return iselementpresent;
+	}
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to get script web element from file tree and return Web element if file is found otherwise return null
+	 * @param: Providing valid File name	
+	 */
+
+	public WebElement getScriptFromScriptTree(String FileName)
+	{
+		WebElement ScriptWebElement=null;
+		int Count=0;
+		while((ScriptWebElement==null))
+		{
+			ScriptWebElement=ScriptOperations.getScriptFromScriptTree(FileName);
+			Count++;
+			if(Count==3)
+			{
+				break;
+			}
+		}
+
+		return ScriptWebElement;
+
+	}
+
+
+	/**
+	 * Implementation of the method to Verify success message and if it is done successfully returns true otherwise return false 
+	 * @param: Providing valid File name
+	 */
+	public boolean VerifySuccessMessage(String scriptName)
+	{	
+		boolean isSaved=false;
+
+		String Successmessageid="//*[@id='content_"+scriptName+"_GoogleCharts']/div[1]/div[1]/div[1]/div[1]";	
+		//waiting until success message to be displayed and Getting Success message and stored in string variable			
+		WebElement SuccessMessageWebElement=getWebElement(driver,Successmessageid,"Success Message");	
+		if(SuccessMessageWebElement!=null)
+		{
+			String SuccessMessage=SuccessMessageWebElement.getText().toString();
+			//Verifying the saved script success message
+			if(expectedScriptSaveSuccessMessage.equalsIgnoreCase(SuccessMessage))
+			{		
+				isSaved=true;					
+				//Taking Screen shot on success
+				ATUReports.add("File Saved successfully",  LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+
+			}
+			else
+			{
+				//Taking Screen shot on Failure
+				ATUReports.add("File Not Saved successfully", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+		}
+		return isSaved;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to update the File code in File editor and if it is done successfully returns true otherwise return false 
+	 * @param: Providing valid File name
+	 * @param: Providing valid File Data
+	 */
+
+	public boolean UpdateScriptDataAtRequiredLine(String FileName, String UpdatedData) 
+	{	
+		boolean issavescript=false;
+		System.out.println("Updating script.......................");		
+		if(ScriptOperations.openScriptFromScriptTree(FileName))
+		{
+			EnterCodeInExistingScript(FileName,UpdatedData);
+			//Clicking on save button			
+			common.isElementDisplayed(driver,SaveButton,"Save Button").click();	
+			//verifying success message
+			if(VerifySuccessMessage(FileName))
+			{					
+				issavescript=true;
+			}
+		}
+		return issavescript;
+	}
+
+	//*[@id='content_"+FileName+"_codeMirror']/div[1]/div[2]/div/div[6]/div[1]/div/div/div/div[5]/div
+
+
+
+	/**
+	 * Implementation of the method to enter the File code in File editor and if it is done successfully returns true otherwise return false 
+	 * @param: Providing valid File name
+	 */
+
+	public boolean EnterCodeInExistingScriptAtRequiredLine(String FileName,String UpdatedData)
+	{	
+		boolean isScriptupdated=false;
+
+		try
+		{
+			String ScriptContentID="//*[@id='content_"+FileName+"_codeMirror']/div[1]/div[2]/div/div[6]/div[1]/div/div/div/div[5]/div";	
+			List<WebElement> totalLines=common.getAllWebElements(driver, ScriptContentID);
+			if(totalLines.size()!=0)
+			{
+
+
+				totalLines.get(totalLines.size()-1).click();				
+				common.waitUntillPageLoads(2000);
+				WebElement ScriptContentWebEelement=driver.findElement(By.xpath("//*[@id='content_"+FileName+"_CodeMirrorArbitraryFile']/div[1]/div[2]/div/div[1]/textarea"));	
+				if(ScriptContentWebEelement!=null)
+				{
+					isScriptupdated=true;				
+					ArrayList<String> ScriptData=common.ReadDataFromFile(UpdatedData);
+					for(int LineNumber=0;LineNumber<ScriptData.size();LineNumber++)
+					{	            
+						ScriptContentWebEelement.sendKeys(Keys.ENTER);	
+						ScriptContentWebEelement.sendKeys(ScriptData.get(LineNumber));									
+					}
+					ATUReports.add("Code is updated successfully", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+				}
+			}
+
+
+		}
+
+		//this code executes if code is not 
+		catch (Exception e)
+		{
+			//taking screen shot if drop down is not visible to user
+			ATUReports.add("Reading file is failed and unable to write code in the editor", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			System.out.println("Reading file is failed and unable to write code in the editor"+e);
+			isScriptupdated=false;
+			return isScriptupdated;
+		}
+		return isScriptupdated;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to enter the File code in File editor and if it is done successfully returns true otherwise return false 
+	 * @param: Providing valid File name
+	 */
+
+	public boolean EnterCodeInExistingScript(String FileName,String UpdatedData)
+	{	
+		boolean isScriptupdated=false;
+
+		try
+		{
+			String ScriptContentID="//*[@id='content_"+FileName+"_CodeMirrorArbitraryFile']/div[1]/div[2]/div/div[6]/div[1]/div/div/div/div[5]/div/pre";			
+			WebElement ScriptContent=getWebElement(driver, ScriptContentID, "ScriptContentID");
+			if(!(ScriptContent==null))
+			{		
+
+				ScriptContent.click();				
+				common.waitUntillPageLoads(2000);
+				WebElement ScriptContentWebEelement=driver.findElement(By.xpath("//*[@id='content_"+FileName+"_CodeMirrorArbitraryFile']/div[1]/div[2]/div/div[1]/textarea"));	
+				isScriptupdated=true;				
+				ArrayList<String> ScriptData=common.ReadDataFromFile(UpdatedData);
+				for(int LineNumber=0;LineNumber<ScriptData.size();LineNumber++)
+				{	            
+					ScriptContentWebEelement.sendKeys(Keys.ENTER);	
+					ScriptContentWebEelement.sendKeys(ScriptData.get(LineNumber));									
+				}
+				ATUReports.add("Code is updated successfully", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+
+
+		}
+
+		//this code executes if code is not 
+		catch (Exception e)
+		{
+			//taking screen shot if drop down is not visible to user
+			ATUReports.add("Reading file is failed and unable to write code in the editor", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			System.out.println("Reading file is failed and unable to write code in the editor"+e);
+			isScriptupdated=false;
+			return isScriptupdated;
+		}
+		return isScriptupdated;
+	}
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to get the File data and return array list object if successfully read the data otherwise return null
+	 * @param: Providing valid File name as input
+	 * 
+	 */
+
+	public ArrayList<String> GetScriptData(String FileName) 
+	{
+		ArrayList<String> CodeData=new ArrayList<String>();
+		try{
+			System.out.println("Getting script data.......................");
+			String ScriptData=null;	
+			if(ScriptOperations.openScriptFromScriptTree(FileName))
+			{		
+				String ScriptContentID="//*[@id='content_"+FileName+"_CodeMirrorArbitraryFile']/div[1]/div[2]/div/div[6]/div[1]/div/div/div/div[5]/div";
+				List<WebElement> ScriptContentWebElements=common.getAllWebElements(driver, ScriptContentID);
+				for(WebElement ScriptContentWebElement:ScriptContentWebElements  )
+				{			
+					ScriptData=ScriptContentWebElement.findElement(By.xpath("pre")).getText();
+					CodeData.add(ScriptData);				
+				}
+
+			}
+		}catch (Exception e)
+		{
+			System.out.println("exception occured"+e);
+			ATUReports.add("Exception Occured during reading data from script", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+		return CodeData;	
+
+	}
+
+
+	/**
+	 * Implementation of the method to Move the cursor/focus to required tab and return true if successfully moved to respctive tab other wise return false
+	 */
+
+	public boolean MoveToTab(int tabnumber,String PageName) 
+	{	
+		boolean isLogspagepresent=false;
+
+		try
+		{
+			ArrayList<String> AllTabs = new ArrayList<String> (driver.getWindowHandles());
+			driver.switchTo().window(AllTabs.get(tabnumber));
+
+		}
+
+		//this code executes if element is not present in web page
+		catch (NoSuchElementException e)
+		{
+			//taking screen shot if drop down is not visible to user
+			ATUReports.add("Move to Required Tab", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			System.out.println("Move to Required Tab due to element is not present and error is="+e);
+			isLogspagepresent=false;
+			return isLogspagepresent;
+		}
+		return isLogspagepresent;
+	}
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to open new script drop down and return true if it open new script drop down successfully otherwise return false	 
+	 */
+	public boolean openNewScriptDropdown()
+	{	
+		boolean isNewScriptDropdown=false;
+
+		if(common.isElementDisplayed(driver, NewScriptDropDown,"New Script Drop down")!=null)
+		{
+			common.isElementDisplayed(driver, NewScriptDropDown,"New Script Drop down").click();
+			//wait until chart menu displayed to user
+			if(common.waitForElementtobeVisible(driver,chartMenu,"chart Menu"))
+			{		
+				//assign true value to boolean value which represents success
+				isNewScriptDropdown=true;
+			}
+			else
+			{
+				isNewScriptDropdown=false;
+				//taking screen shot on failure
+				ATUReports.add("Chart Menu is not displaying in new script drop down", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+		}
+		return isNewScriptDropdown;
+	}
+
+
+
+
+	/**
+	 * Implementation of the method to verify chart tab name and return true if tab name verified successfully otherwise return false
+	 * 
+	 */
+	public boolean verifyChartScriptTabName()
+	{	
+		boolean isTabNameVerified=false;
+
+
+		//getting chart script tab name
+		String chartTabNameValue=common.isElementDisplayed(driver, chartTabName,"chartTabName").getText().toString();		
+		//compare tab name with expected value
+		if(chartTabNameValue.equals("New Chart"))
+		{		
+			//assign true value to boolean value which represents success
+			isTabNameVerified=true;
+			ATUReports.add("Chart Script Tab name displayed as\""+chartTabNameValue+"\"", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+		else
+		{
+			isTabNameVerified=false;
+			//taking screen shot on failure
+			ATUReports.add("Chart Editor tab name is showing wrong now it is showing as \""+ chartTabNameValue +"\"", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}		
+		return isTabNameVerified;
+	}
+
+
+	/**
+	 * Implementation of the method to select data source script from drop down and return true if script is selected successfully otherwise return false
+	 * @param: sourseScriptName
+	 */
+	public boolean selectSourceScriptFromDropdown(String sourseScriptName)
+	{	
+		boolean isSuccess=false;
+		int i;
+		if(switchToFrame(0))
+		{
+			String scriptDropdownID="//div[@class='scripts-list']/span[2]/span/select";
+			WebElement scriptDropdown=getWebElement(driver, scriptDropdownID, "scriptDropdownID");
+			if(scriptDropdown!=null)
+			{
+				Select selectScript=new Select(scriptDropdown);
+				List<WebElement> scriptList=selectScript.getOptions();
+				for(i=0;i<scriptList.size();i++)
+				{
+					System.out.println(scriptList.get(i).getText());
+					if(scriptList.get(i).getText().equals(sourseScriptName))
+					{
+						isSuccess=true;
+						selectScript.selectByIndex(i);
+						ATUReports.add("Script ("+sourseScriptName+") Selected", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						break;
+					}
+
+
+				}
+				if(i==scriptList.size())
+				{
+					isSuccess=false;
+					ATUReports.add("Given Script ("+sourseScriptName+") Not Found In Drop down", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));	
+				}
+				switchToFrame(-1);
+			}
+
+		}
+
+
+
+		return isSuccess;
+	}
+
+
+	/**
+	 * Implementation of the method to verify ScriptDropdown(default chart) and return true if successfully verified otherwise return false	 
+	 */
+	public boolean verifyScriptDropdown()
+	{	
+		boolean isDropdownVerified=false;
+		int count=0;
+
+		if(switchToFrame(0))
+		{
+
+			if(common.isElementDisplayed(driver,selectScriptHeading, "selectScriptHeading").getText().toString().equals("Select your data source script"))
+			{
+				count++;
+			}
+			else
+			{
+				isDropdownVerified=false;
+				ATUReports.add("Chart Editor Select Script heading is showing wrong", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+
+
+			if(common.isElementPresent(driver,refreshIcon, "refreshIcon"))
+			{
+				count++;	
+			}
+			else
+			{
+				isDropdownVerified=false;
+				ATUReports.add("Refresh icon missing ", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+
+			if(common.isElementPresent(driver,newScriptIcon, "newScriptIcon"))
+			{
+				count++;		
+			}
+			else
+			{
+				isDropdownVerified=false;
+				ATUReports.add("new Script Icon missing ", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}		
+
+			if(count==3)
+			{
+				isDropdownVerified=true;
+				ATUReports.add("Select Source script drop down displayed properly", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+
+			switchToFrame(-1);
+
+		}
+		return isDropdownVerified;
+	}
+
+
+
+	/**
+	 * Implementation of the method to verify Navigation Links(default chart) and return true if successfully verified otherwise return false	 
+	 */
+	public boolean verifyNavigationLinks()
+	{	
+		boolean isNavigationMenusVerified=false;
+		int count=0;
+		if(switchToFrame(0))
+		{
+
+			List<WebElement> navigationMenuList=driver.findElements(By.xpath("//*[@id='google-visualization-charteditor-panel-navigate-div']/div"));
+			if(navigationMenuList.size()!=0)
+			{
+				if(navigationMenuList.size()==3)
+				{			
+					if(navigationMenuList.get(0).isEnabled()&&navigationMenuList.get(1).isEnabled()&&navigationMenuList.get(2).isEnabled())
+					{
+						if(navigationMenuList.get(0).getText().toString().equals("Start"))
+						{
+							count++;
+						}else
+						{
+							isNavigationMenusVerified=false;
+							ATUReports.add("Start menu is not displayed properly ", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						}
+						if(navigationMenuList.get(1).getText().toString().equals("Charts"))
+						{
+							count++;
+						}else
+						{
+							isNavigationMenusVerified=false;
+							ATUReports.add("Charts menu is not displayed properly ", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						}
+						System.out.println(navigationMenuList.get(2).getText().toString());
+						if(navigationMenuList.get(2).getText().toString().equals("Customize"))
+						{
+							count++;
+						}else
+						{
+							isNavigationMenusVerified=false;
+							ATUReports.add("Customize menu is not displayed properly ", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						}	
+
+						if(count==3)
+						{
+							isNavigationMenusVerified=true;
+							ATUReports.add("Navigation menus are displayed properly", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						}
+					}
+
+				}
+			}
+			else
+			{
+				ATUReports.add("Chart Navigation links are not showing to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+			switchToFrame(-1);
+
+		}
+		return isNavigationMenusVerified;
+	}
+
+	/**
+	 * Implementation of the method to verify Chart Buttons(default chart) and return true if successfully verified otherwise return false	 
+	 */
+	public boolean verifyChartButtons()
+	{	
+		boolean isNavigationMenusVerified=false;
+		int count=0;
+		List<WebElement> chartButtonsList=driver.findElements(By.xpath("//*[@id='scriptsTemplates']/div[3]/div[1]/div[2]/div/div[3]/div"));
+		if(chartButtonsList.size()!=0)
+		{
+			if(chartButtonsList.size()==8)
+			{
+
+				if(chartButtonsList.get(0).isEnabled()&&chartButtonsList.get(1).isEnabled()&&chartButtonsList.get(2).isEnabled()&&chartButtonsList.get(3).isEnabled()&&chartButtonsList.get(4).isEnabled()&&chartButtonsList.get(5).isEnabled()&&chartButtonsList.get(6).isEnabled()&&chartButtonsList.get(7).isEnabled())
+				{
+					if(chartButtonsList.get(0).getText().toString().equals("Data"))
+					{
+						count++;
+					}else
+					{
+						isNavigationMenusVerified=false;
+						ATUReports.add("Data Tab is not displayed properly ", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}
+					if(chartButtonsList.get(1).getText().toString().equals("Embed URL"))
+					{
+						count++;
+					}else
+					{
+						isNavigationMenusVerified=false;
+						ATUReports.add("Embed URL Tab is not displayed properly ", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}
+					if(chartButtonsList.get(2).getText().toString().equals("HTML"))
+					{
+						count++;
+					}else
+					{
+						isNavigationMenusVerified=false;
+						ATUReports.add("HTML Tab is not displayed properly ", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}	
+
+					if(chartButtonsList.get(3).getText().toString().equals("Samples"))
+					{
+						count++;
+					}else
+					{
+						isNavigationMenusVerified=false;
+						ATUReports.add("Samples Tab is not displayed properly ", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}	
+
+					if(count==4)
+					{
+						isNavigationMenusVerified=true;
+						ATUReports.add("Chart Tabs are displayed properly", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+					}
+				}
+			}
+		}else
+		{
+			ATUReports.add("Chart buttons are not showing to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+
+
+		return isNavigationMenusVerified;
+	}
+
+
+	/**
+	 * Implementation of the method to verify RecomendedCharts(default chart) and return true if successfully verified otherwise return false	 
+	 */
+	public boolean verifyRecomendedCharts()
+	{	
+		boolean isChartTabsVerified=false;
+		switchToFrame(0);
+		if(common.isElementDisplayed(driver, recommendedHistogramChart, "recommendedHistogramChart").isEnabled()&&common.isElementDisplayed(driver, recommendedBarChart, "recommendedBarChart").isEnabled()&&common.isElementDisplayed(driver, recommendedColumnBarChart, "recommendedColumnBarChart").isEnabled()&&common.isElementDisplayed(driver, recommendedComboChart, "recommendedComboChart").isEnabled())
+		{
+			isChartTabsVerified=true;
+			ATUReports.add("Recomended Charts are displayed properly", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+		switchToFrame(-1);
+		return isChartTabsVerified;
+
+	}
+
+	/**
+	 * Implementation of the method to verify preview chart(default chart) and return true if successfully verified otherwise return false	 
+	 */
+	public boolean verifyPreviewChart()
+	{	
+		boolean isChartTabsVerified=false;
+
+		if(common.isElementDisplayed(driver, previewChart, "previewChart").isEnabled())
+		{
+			isChartTabsVerified=true;
+		}
+		return isChartTabsVerified;
+
+	}
+
+
+	/**
+	 * Implementation of the method to switching between frames and return true if successfully switched to respective frame otherwise return false	 
+	 * @param: Frame index
+	 */
+	public boolean switchToFrame(int frameNumber)
+	{	
+		boolean isSuccess=false;
+		if(frameNumber>=0)
+		{
+			driver.switchTo().frame(0);
+			isSuccess=true;
+		}
+		else
+		{
+			driver.switchTo().defaultContent();
+			isSuccess=true;
+		}
+		return isSuccess;
+
+	}
+
+
+	/**
+	 * Implementation of the method to Deleting saved script by clicking on delete button  after saving script successfully
+	 * @param: Providing valid script name as input
+	 * 
+	 */
+
+	public boolean isSaveButtonEnabled() 
+	{	
+		boolean isSaveButtonEnabled=false;		
+		if(SaveButton.getAttribute("class").contains("tooltip-info disabled"))
+		{
+			isSaveButtonEnabled=false;
+		}
+		else
+		{
+			isSaveButtonEnabled=true;
+		}
+
+		return isSaveButtonEnabled;
+	}
+
+
+
+
+	/**
+	 * Implementation of the method to to close the script tab and if it is done successfully returns true otherwise return false 
+	 * @param: Providing valid Script name
+	 */
+
+	public boolean CloseScriiptTab()
+	{	
+		boolean ispopuppresent=false;
+		String ScriptCloseTabID=null;	
+
+		//identifying Close icon for the Current Script
+		ScriptCloseTabID="//*[@id='___NewScript1_GoogleCharts']/span";
+
+		//Clicking on delete icon at script tab
+		WebElement closeTab=getWebElement(driver, ScriptCloseTabID, "ScriptCloseTabID");
+		if(closeTab!=null)
+		{
+			closeTab.click();
+		}
+
+		if(common.waitForElementtobeVisible(driver,YesButtonInUnSavedChangesPopup,"Yes Button In UnSaved Changes Popup"))
+		{
+			ispopuppresent=true;
+			Assert.assertTrue(UnSavedChangesPopupMessage.getText().toString().equals("Are you sure you want to discard your changes?"), "Scriptr unable to Close un saved changes successfully");
+			//Clicking on delete button in the confirmation pop up
+			YesButtonInUnSavedChangesPopup.click();	
+			common.waitUntillPageLoads(1000);
+		}				
+
+
+
+
+		return ispopuppresent;
+	}
+
+
+
+	/**
+	 * Implementation of the method to enter the script code in script editor and if it is done successfully returns true otherwise return false 
+	 * @param: Providing valid File name
+	 */
+
+	public boolean enterCodeInScriptEditor(String FileName)
+	{	
+		boolean isnewscriptopened=false;
+
+		try
+		{
+			String scriptAreaID="//*[@id='content___NewScript2_codeMirror']/div[1]/div[2]/div/div[1]/textarea";
+			WebElement ScriptEditor=driver.findElement(By.xpath(scriptAreaID));
+			//Enter code in the editor						
+			ArrayList<String> ScriptData=common.ReadDataFromFile(FileName);
+			for(int LineNumber=0;LineNumber<ScriptData.size();LineNumber++)
+			{	            
+				ScriptEditor.sendKeys(ScriptData.get(LineNumber));
+				if(!(LineNumber==ScriptData.size()-1))
+				{
+					ScriptEditor.sendKeys(Keys.ENTER);		
+				}
+			}
+
+
+		}
+
+		//this code executes if code is not 
+		catch (NoSuchElementException e)
+		{
+			//taking screen shot if drop down is not visible to user
+			ATUReports.add("Reading file is failed and unable to write code in the editor", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			System.out.println("Reading file is failed and unable to write code in the editor"+e);
+			isnewscriptopened=false;
+			return isnewscriptopened;
+		}
+		return isnewscriptopened;
+	}
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to get chart title name and return true if successfully retried otherwise return false
+	 * 	 
+	 */
+	public String getChartTitleName()
+	{	
+		String Value=null;
+
+		if(switchToFrame(0))
+		{			
+			if(common.isElementDisplayed(driver, chartTitle, "chartTitle")!=null)
+			{
+				Value=common.isElementDisplayed(driver, chartTitle, "chartTitle").getText();
+			}
+			else
+			{
+				ATUReports.add("ChartTitle is not showing in image or not enabled", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+			switchToFrame(-1);
+
+		}
+		return Value;
+	}
+
+
+
+
+	/**
+	 * Implementation of the method to update chart title name and return true if successfully updated otherwise return false
+	 * @param: updateChartTitle	 
+	 */
+	public boolean updateChartTitleName(String updateChartTitle)
+	{	
+		boolean isSuccess=false;
+
+		if(switchToFrame(0))
+		{			
+			if(common.isElementDisplayed(driver, chartTitleField, "chartTitle").isEnabled())
+			{			
+				common.isElementDisplayed(driver, chartTitleField, "chartTitle").clear();
+				common.isElementDisplayed(driver, chartTitleField, "chartTitle").sendKeys(updateChartTitle);
+				isSuccess=true;
+				common.waitUntillPageLoads(2000);
+				ATUReports.add("Chart title update successfully", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+
+			}
+			else
+			{
+				ATUReports.add("updateChartTitle is not showing to user or not enabled", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+			switchToFrame(-1);
+
+		}
+		return isSuccess;
+	}
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to open navigation menu  and return true if successfully opened otherwise return false
+	 * @param: Menu Name	 
+	 */
+	public boolean openNavigationMenu(String menuName)
+	{	
+		boolean isSuccess=false;
+
+		if(switchToFrame(0))
+		{
+			List<WebElement> navigationMenuList=driver.findElements(By.xpath("//*[@id='google-visualization-charteditor-panel-navigate-div']/div"));
+			if(navigationMenuList.size()!=0)
+			{			
+				for(WebElement navigationName:navigationMenuList)
+				{
+					if(navigationName.getText().toString().trim().equals(menuName))
+					{
+						navigationName.click();
+						common.waitUntillPageLoads(500);
+						common.waitForElementtobeVisible(driver, chartTitleField, "chartTitleField");
+						ATUReports.add(menuName+"  Menu opened successfully", LogAs.PASSED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						isSuccess=true;
+					}					
+				}
+
+			}
+			else
+			{
+				ATUReports.add("Navigation Links are not visible to user (OR) missing", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+			switchToFrame(-1);
+
+		}
+		return isSuccess;
+	}
+
+
+
+
+
+	/**
+	 * Implementation of the method to moving to chart tab and return true if successfully updated otherwise return false	  
+	 */
+	public boolean moveToChartTab()
+	{	
+		boolean isSuccess=false;
+		String scriptTabID="//*[@id='___NewScript1_GoogleCharts']/a";
+		WebElement chartScriptTab=getWebElement(driver, scriptTabID, "chartScriptTab");
+		if(chartScriptTab!=null)
+		{
+			chartScriptTab.click();
+		}
+		else
+		{
+			ATUReports.add("Chart Tab Not visible so not able to move to chart tab", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+
+		return isSuccess;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to open google chart and verify all elements/fields are displayed properly
+	 */
+
+	public boolean navigateToGroupTab(boolean isgroupsexist)
+	{	
+
+		boolean isSuccess=false;
+		if(scriptr.openDirectoryOverlay())
+		{
+			if(common.isElementDisplayed(driver, groupTab, "groupTab")!=null)
+			{
+				if(groupTab.isEnabled())
+				{
+					groupTab.click();
+					common.waitUntillPageLoads(1500);
+					if(isgroupsexist)
+					{
+						if(common.waitForElementtobeVisible(driver, groupItems, "groupItems"))
+						{
+							isSuccess=true;
+						}
+						else
+						{
+							ATUReports.add("After clicking on group tab page taking longer time to load the groups (OR) nothing found under group tab", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						}
+					}else
+					{
+						if(common.waitForElementtobeVisible(driver, noGroupMessage, "noGroupMessage"))
+						{
+							isSuccess=true;
+						}else
+						{
+							ATUReports.add("After clicking on group tab page taking longer time to load the groups (OR) No message group is not visible to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+						}
+					}
+
+				}
+				else
+				{
+					ATUReports.add("Group Tab is not enabled or not visible to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+				}
+			}
+		}
+
+		return isSuccess;
+	}
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to open the directory pop up and  return true if Pop up opened successfully otherwise return false	
+	 */
+
+	public boolean isAddGroupLinkEnabled()
+	{
+		boolean isSuccess=false;
+		if(common.isElementDisplayed(driver, addGroupLink, "add Group Link")!=null)
+		{
+			if(addGroupLink.isEnabled())
+			{				
+
+				if(addGroupLink.getAttribute("class").equals("actionBtn"))
+				{
+					isSuccess=true;
+				}
+				else if(addGroupLink.getAttribute("class").equals("actionBtn disabled"))
+				{
+					isSuccess=false;
+				}
+			}
+		}
+
+		return isSuccess;
+
+	}
+
+
+	/**
+	 * Implementation of the method to open the directory pop up and  return true if Pop up opened successfully otherwise return false	
+	 */
+
+	public boolean createNGroups(int numberOfGroups)
+	{
+		boolean isSuccess=false;
+		int groupCount;
+		if(isAddGroupLinkEnabled())
+		{
+			while(numberOfGroups!=0)
+			{
+				groupCount=getGroupCount();
+				addGroupLink.click();
+				if((groupCount+1)==getGroupCount())
+				{
+					isSuccess=true;
+				}
+				else
+				{
+					ATUReports.add("Clicking on add group link group is not created (OR) New Row is not created", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+				}
+				numberOfGroups--;
+			}
+
+		}
+
+		return isSuccess;
+
+	}
+
+
+
+	/**
+	 * Implementation of the method to open the directory pop up and  return true if Pop up opened successfully otherwise return false	
+	 */
+
+	public int getGroupCount()
+	{
+		int groupListCount=0;
+
+		List <WebElement> groupList=common.getAllWebElements(driver, groupsListID);
+		if(groupList.size()!=0)
+		{
+			groupListCount=groupList.size();
+		}else
+		{
+			ATUReports.add("There is no groups under group tab", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+
+		return groupListCount;
+
+	}
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to open the directory pop up and  return true if Pop up opened successfully otherwise return false	
+	 */
+
+	public boolean createGroup(String groupName)
+	{
+		boolean isSuccess=false;
+
+
+		List <WebElement> groupList=common.getAllWebElements(driver, groupsListID);
+		if(groupList.size()!=0)
+		{
+			for(WebElement groupListItem:groupList)
+			{
+				String groupListItemID=groupListItem.getAttribute("id").toString();
+				if(groupListItemID.contains("NewEntry"))
+				{
+					String groupNameID="//*[@id='_"+groupListItemID+"']/div[1]/div[1]/form/div/div/input";
+					String okButton="//*[@id='_"+groupListItemID+"']/div[1]/div[2]/div[1]/button[1]";
+					if(enterValueIntoTextBox(groupNameID, groupName))
+					{
+						if(clickOnButton(okButton))
+						{
+							common.waitUntillPageLoads(2000);
+							//isGroupCreated(groupName);
+						}
+					}
+					
+				}
+			}
+		}else
+		{
+			ATUReports.add("There is no groups under group tab", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+
+		return isSuccess;
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+	/**
+	 * Implementation of the method to open the directory pop up and  return true if Pop up opened successfully otherwise return false	
+	 */
+
+	public boolean enterValueIntoTextBox(String textboxName,String Value)
+	{
+		boolean isSuccess=false;
+
+		WebElement groupNameElement=getWebElement(driver, textboxName, textboxName);
+		if(groupNameElement!=null)
+		{
+			if(groupNameElement.isEnabled())
+			{
+				groupNameElement.sendKeys(Value);
+				isSuccess=true;
+			}
+			else
+			{
+				ATUReports.add(textboxName+" is visible to user But It is not enabled", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+		}else
+		{
+			ATUReports.add(textboxName+" is not visible to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+
+		return isSuccess;
+
+	}
+
+
+	/**
+	 * Implementation of the method to open the directory pop up and  return true if Pop up opened successfully otherwise return false	
+	 */
+
+	public boolean clickOnButton(String textboxName)
+	{
+		boolean isSuccess=false;
+
+		WebElement groupNameElement=getWebElement(driver, textboxName, textboxName);
+		if(groupNameElement!=null)
+		{
+			if(groupNameElement.isEnabled())
+			{
+				groupNameElement.click();
+				isSuccess=true;
+			}
+			else
+			{
+				ATUReports.add(textboxName+" is visible to user But It is not enabled", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+		}else
+		{
+			ATUReports.add(textboxName+" is not visible to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+
+		return isSuccess;
+
+	}
+
+
+	/**
+	 * Implementation of the method to open the directory pop up and  return true if Pop up opened successfully otherwise return false	
+	 */
+
+	public boolean isGroupCreated(String groupName)
+	{
+		boolean isSuccess=false;
+
+		String groupNameID="//*[@id='group_"+groupName+"']";
+		WebElement groupNameElement=getWebElement(driver, groupNameID, groupNameID);
+		if(groupNameElement!=null)
+		{
+			if(groupNameElement.isEnabled())
+			{				
+				isSuccess=true;
+			}
+			else
+			{
+				ATUReports.add(groupName+" is visible to user But It is not enabled", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			}
+		}else
+		{
+			ATUReports.add(groupName+" is not visible to user", LogAs.FAILED,new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+		}
+
+		return isSuccess;
+
+	}
+
+
+
+
+
+
+
+
+
+
+}
+
+

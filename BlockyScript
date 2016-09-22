@@ -1,0 +1,1 @@
+return sendMail ('bhravikumar578@gmail.com', 'bhravikumar578@gmail.com', 'Subject: mail subject here.............', 'Body: mail body is here......')
